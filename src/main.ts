@@ -2,9 +2,10 @@ import express from 'express';
 import * as routes from './routes';
 import { AppDataSource } from './database/database';
 
-const app = express();
 
 const main = async() => {
+  const app = express();
+  app.use(express.json())
 
   AppDataSource.initialize()
       .then(() => {
