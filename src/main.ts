@@ -1,6 +1,6 @@
 import express from 'express';
 import * as routes from './routes';
-import { AppDataSource } from './databases/database';
+import { AppDataSource } from './database/database';
 
 const app = express();
 
@@ -16,11 +16,6 @@ const main = async() => {
   Object.keys(routes).forEach((routeName) => {
       (routes as any)[routeName](app);
   });
-
-  Object.keys(routes).forEach((routeName) => {
-      (routes as any)[routeName](app);
-  });
-
 
 
   app.listen(3000, () => {
