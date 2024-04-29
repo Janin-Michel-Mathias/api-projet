@@ -12,8 +12,11 @@ export class Salle {
     @Column()
     description: string;
 
-    @OneToMany(() => Image, (image) => image.idSalle)
-    images: Image[];
+    // @OneToMany(() => Image, (image) => image.idSalle)
+    // images: Image[];
+
+    @Column()
+    images: string;
 
     @Column()
     capacite: number;
@@ -28,7 +31,7 @@ export class Salle {
         idSalle: number,
         nom: string,
         description: string,
-        images: Image[],
+        images: string,
         capacite: number,
         accesHandicap: boolean,
         etat: string
