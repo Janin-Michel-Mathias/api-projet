@@ -44,3 +44,19 @@ export const updateSalleValidation = Joi.object<UpdateSalleRequest> ({
     accesHandicap: Joi.bool(),
     etat: Joi.string().valid("Prêt", "En maintenance", "Occupé", "Fermé")
 }).options({ abortEarly: false });
+
+export interface GetSalleRequest {
+    id: number
+}
+
+export const getSalleValidation = Joi.object<GetSalleRequest> ({
+    id: Joi.number().required()
+})
+
+export interface DeleteSalleRequest {
+    id: number
+}
+
+export const deletesalleValidation = Joi.object<DeleteSalleRequest>({
+    id: Joi.number().required()
+})
