@@ -12,9 +12,6 @@ export class Employe {
     mdp: string
 
     @Column()
-    token: string
-
-    @Column()
     role: string
 
     @Column()
@@ -25,7 +22,6 @@ export class Employe {
         this.idEmploye = id
         this.nom = name
         this.mdp = password
-        this.token = token
         this.role = role
         this.poste = poste
     }
