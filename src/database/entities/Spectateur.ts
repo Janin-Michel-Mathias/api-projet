@@ -9,6 +9,12 @@ export class Spectateur {
     nom: string;
 
     @Column()
+    email: string;
+
+    @Column()
+    mdp: string;
+
+    @Column()
     prenom: string;
 
     @Column()
@@ -22,12 +28,16 @@ export class Spectateur {
         nom: string,
         prenom: string,
         sexe: string,
-        date_naissance: Date
+        date_naissance: Date,
+        email: string,
+        mdp: string
     ) {
         this.idSpectateur = idSpectateur;
         this.nom = nom;
         this.prenom = prenom;
         this.sexe = sexe;
         this.date_naissance = date_naissance;
+        this.email = email;
+        this.mdp = mdp;
     }
 }
