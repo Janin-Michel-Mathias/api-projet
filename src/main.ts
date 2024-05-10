@@ -1,7 +1,7 @@
 import express from 'express';
 import * as routes from './routes';
 import { AppDataSource } from './database/database';
-
+import 'dotenv/config';
 
 const main = async() => {
   const app = express();
