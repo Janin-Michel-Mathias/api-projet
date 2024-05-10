@@ -30,7 +30,9 @@ export const getSalle = (app: Express):void => {
             if (getSalle === null) {
                 res.status(404).send({"error": `salle ${getSalleRequest.id} not found`})
                 return
-            }    
+            }
+            res.status(200).send(getSalle)
+
         } catch(error) {
             console.log(error)
             res.status(500).send({ error: "Internal error"})
