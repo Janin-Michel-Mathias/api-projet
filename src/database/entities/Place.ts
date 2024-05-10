@@ -1,29 +1,24 @@
 import { Column, Entity, PrimaryGeneratedColumn, ManyToOne } from "typeorm";
 import { Tache } from "./Tache";
 
-@Entity({ name: "Billet" })
-export class Billet {
+@Entity({ name: "Place" })
+export class Place {
     @PrimaryGeneratedColumn()
-    idBillet: number;
-
-    @Column()
-    prix: number;
+    idPlace: number;
 
     @Column()
     numSiege: string;
 
     @ManyToOne(() => Tache, tache => tache.idTache)
-    idTache: number;
+    idSeance: number;
 
     constructor(
-        idBillet: number,
-        prix: number,
+        idPlace: number,
         numSiege: string,
-        idTache: number
+        idSeance: number
     ) {
-        this.idBillet = idBillet;
-        this.prix = prix;
+        this.idPlace = idPlace;
         this.numSiege = numSiege;
-        this.idTache = idTache;
+        this.idSeance = idSeance;
     }
 }

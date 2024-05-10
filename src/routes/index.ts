@@ -5,5 +5,6 @@ export * from './films';
 export * from './taches';
 export * from './employe';
 export * from './spectateur';
+export * from './billet';
 export * from './login';
 export * from './money';
