@@ -1,10 +1,10 @@
 import { Column, Entity, PrimaryGeneratedColumn, ManyToOne } from "typeorm";
 import { Tache } from "./Tache";
 
-@Entity({ name: "Place" })
-export class Place {
+@Entity({ name: "Billet" })
+export class Billet {
     @PrimaryGeneratedColumn()
-    idPlace: number;
+    idBillet: number;
 
     @Column()
     prix: number;
@@ -16,12 +16,12 @@ export class Place {
     idTache: number;
 
     constructor(
-        idPlace: number,
+        idBillet: number,
         prix: number,
         numSiege: string,
         idTache: number
     ) {
-        this.idPlace = idPlace;
+        this.idBillet = idBillet;
         this.prix = prix;
         this.numSiege = numSiege;
         this.idTache = idTache;
