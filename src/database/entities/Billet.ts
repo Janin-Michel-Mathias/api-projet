@@ -7,6 +7,9 @@ export class Billet {
     idBillet: number;
 
     @Column()
+    type: string
+
+    @Column()
     prix: number;
 
     @Column()
@@ -17,11 +20,13 @@ export class Billet {
 
     constructor(
         idBillet: number,
+        type: string,
         prix: number,
         utilisation: number,
         idSpectateur: number
     ) {
         this.idBillet = idBillet;
+        this.type = type;
         this.prix = prix;
         this.utilisation = utilisation;
         this.idSpectateur = idSpectateur;
