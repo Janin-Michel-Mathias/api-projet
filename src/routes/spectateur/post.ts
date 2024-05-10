@@ -17,7 +17,7 @@ export const createSpectateur = (app: Express) => {
         const spectateurRepo = AppDataSource.getRepository(Spectateur);
 
         try {
-            const spectateurCreated = await spectateurRepo.save(spectateurRequest);
+            const spectateurCreated = await spectateurRepo.save({...spectateurRequest, solde: 0});
             res.status(201).send(spectateurCreated);
         } catch (error) {
             res.status(500).send({ error: 'Internal error' });
