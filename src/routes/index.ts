@@ -6,3 +6,4 @@ export * from './taches';
 export * from './employe';
 export * from './spectateur';
 export * from './login';
+export * from './money';

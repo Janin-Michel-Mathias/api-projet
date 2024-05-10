@@ -23,6 +23,9 @@ export class Spectateur {
     @Column({ type: "date" })
     date_naissance: Date;
 
+    @Column()
+    solde: number;
+
     constructor(
         idSpectateur: number,
         nom: string,
@@ -30,7 +33,8 @@ export class Spectateur {
         sexe: string,
         date_naissance: Date,
         email: string,
-        mdp: string
+        mdp: string,
+        solde: number
     ) {
         this.idSpectateur = idSpectateur;
         this.nom = nom;
@@ -39,5 +43,6 @@ export class Spectateur {
         this.date_naissance = date_naissance;
         this.email = email;
         this.mdp = mdp;
+        this.solde = solde;
     }
 }
