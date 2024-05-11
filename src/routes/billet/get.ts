@@ -4,6 +4,9 @@ import { Billet } from '../../database/entities/Billet';
 import { GetBilletValidation } from '../../handlers/validators/billet-validation';
 import { generateValidationErrorMessage } from '../../handlers/validators/generate-validation-message';
 import { BilletUsecase } from '../../domain/billet-usecase';
+import { authSpectateur } from '../../middlewares/authSpectateur';
+import { Spectateur } from '../../database/entities/Spectateur';
+import { Transaction } from 'typeorm';
 
 export const getBillets = (app: Express): void => {
     app.get('/billets', async (req: Request, res: Response) => {
@@ -38,3 +41,17 @@ export const getBillet = (app: Express): void => {
         }
     });
 };
+
+
+export const getMyBillet = (app: Express) => {
+    app.get('/me/billets/', authSpectateur, async (req: Request, res: Response) => {
+
+        const spectateur = (req as any).user;
+
+        const repo = AppDataSource.getRepository(Billet);
+        const billets = await repo.find({ where: { idSpectateur: spectateur.id } });
+        console.log(billets);
+
+        res.status(200).send(billets);
+    });
+}
