@@ -1,14 +1,15 @@
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
+@Entity({ name: "Tache" })
 export class Tache {
   @PrimaryGeneratedColumn()
   idTache: number;
 
   @Column()
-  nom: string;
+  nom?: string;
 
   @Column()
-  type: "Seance" | "Travail" | "Maintenance";
+  type: string;
 
   @Column()
   dateDebut: Date;
@@ -22,18 +23,14 @@ export class Tache {
   @Column()
   idSalle?: number;
 
-  @Column()
-  prix?: number;
-
   constructor(
     idTache: number,
-    nom: string,
-    type: "Seance" | "Travail" | "Maintenance",
+    type: string,
     dateDebut: Date,
     dateFin: Date,
+    nom?: string,
     idFilm?: number,
     idSalle?: number,
-    prix?: number
   ) {
     this.idTache = idTache;
     this.nom = nom;
@@ -42,6 +39,5 @@ export class Tache {
     this.dateFin = dateFin;
     this.idFilm = idFilm;
     this.idSalle = idSalle;
-    this.prix = prix;
   }
 }

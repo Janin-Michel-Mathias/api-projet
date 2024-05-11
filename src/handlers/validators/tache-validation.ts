@@ -1,22 +1,22 @@
 import Joi from "joi";
 
 export interface CreateTacheRequest {
-    nom: string;
+    nom?: string;
     type: "Seance" | "Travail" | "Maintenance";
     dateDebut: Date;
     dateFin: Date;
-    idFilm: number;
-    idSalle: number;
+    idFilm?: number;
+    idSalle?: number;
     prix?: number;
 }
 
 export const createTacheValidation = Joi.object<CreateTacheRequest>({
-    nom: Joi.string().min(1).required(),
+    nom: Joi.string().min(1).optional(),
     type: Joi.string().valid("Seance", "Travail", "Maintenance").required(),
     dateDebut: Joi.date().iso().required(),
     dateFin: Joi.date().iso().required(),
-    idFilm: Joi.number().required(),
-    idSalle: Joi.number().required(),
+    idFilm: Joi.number().optional(),
+    idSalle: Joi.number().optional(),
     prix: Joi.number().min(0),
 }).options({ abortEarly: false });
 
