@@ -56,7 +56,7 @@ export const createEmploye = (app: Express) => {
         }
 
         let employeRequest = validation.value;
-        employeRequest = {...employeRequest, mdp: await hash(employeRequest.mdp, 10)};
+        employeRequest = { ...employeRequest, mdp: await hash(employeRequest.mdp, 10) };
         const employeRepo = AppDataSource.getRepository(Employe);
 
         try {

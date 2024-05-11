@@ -10,3 +10,4 @@ export * from './login';
 export * from './money';
 export * from './seance';
 export * from './place';
+export * from './frequentation';
