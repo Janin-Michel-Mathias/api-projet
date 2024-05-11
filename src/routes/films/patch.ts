@@ -6,6 +6,94 @@ import { generateValidationErrorMessage } from '../../handlers/validators/genera
 import { authAdmin } from '../../middlewares/authAdmin';
 
 export const updateMovies = (app: Express):void => {
+/**
+ * @openapi
+ * /films/{id}:
+ *   patch:
+ *     tags:
+ *       - Films
+ *     summary: Mettre à jour un film par son identifiant
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: Identifiant du film à mettre à jour
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/FilmUpdate'
+ *     responses:
+ *       200:
+ *         description: Film mis à jour avec succès
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Film'
+ *       400:
+ *         description: Erreur de validation
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Message d'erreur
+ *       404:
+ *         description: Film non trouvé
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Message d'erreur
+ *       500:
+ *         description: Erreur interne du serveur
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Message d'erreur
+ *
+ * components:
+ *   schemas:
+ *     FilmUpdate:
+ *       type: object
+ *       properties:
+ *         nom:
+ *           type: string
+ *         duree:
+ *           type: number
+ *         type:
+ *           type: string
+ *         description:
+ *           type: string
+ *       required:
+ *         - nom
+ *
+ *     Film:
+ *       type: object
+ *       properties:
+ *         nom:
+ *           type: string
+ *         duree:
+ *           type: number
+ *         type:
+ *           type: string
+ *         description:
+ *           type: string
+ */
+
+
     app.patch('/films/:id', authAdmin, async (req: Request, res: Response) => {
         const params = {...req.body,  idFilm: parseInt(req.params.id) };
         const validation = updateMovieValidation.validate(params);

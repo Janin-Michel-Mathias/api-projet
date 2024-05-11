@@ -5,6 +5,49 @@ import { authAdmin } from '../../middlewares/authAdmin';
 
 
 export const deleteMovies = (app: Express):void => {
+    /**
+ * @openapi
+ * /films/{id}:
+ *   delete:
+ *     tags:
+ *       - Films
+ *     summary: Supprimer un film par son identifiant
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: Identifiant du film à supprimer
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Film supprimé avec succès
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Film'
+ *       404:
+ *         description: Film non trouvé
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Message d'erreur
+ *       500:
+ *         description: Erreur interne du serveur
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Message d'erreur
+ */
+
     app.delete('/films/:id', authAdmin, async (req: Request, res: Response) => {
         const movieRepo = AppDataSource.getRepository(Film);
         const movie = await movieRepo.findOneBy({ idFilm: parseInt(req.params.id) });

@@ -6,6 +6,48 @@ import { hash } from 'bcrypt';
 import { authAdmin } from '../../middlewares/authAdmin';
 
 export const createEmploye = (app: Express) => {
+    /**
+ * @openapi
+ * /employes:
+ *   post:
+ *     tags:
+ *       - Employes
+ *     summary: Créer un nouvel employé
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Employe'
+ *     responses:
+ *       201:
+ *         description: Employé créé avec succès
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Employe'
+ *       400:
+ *         description: Erreur de validation
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Message d'erreur
+ *       500:
+ *         description: Erreur interne du serveur
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Message d'erreur
+ */
+
     app.post('/employes', authAdmin, async (req: Request, res: Response) => {
         const validation = createEmployeValidation.validate(req.body);
         if (validation.error) {

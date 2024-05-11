@@ -6,6 +6,66 @@ import { hash } from 'bcrypt';
 import { generateValidationErrorMessage } from '../../handlers/validators/generate-validation-message';
 
 export const register = (app: Express): void => {
+    /**
+ * @openapi
+ * /register:
+ *   post:
+ *     tags:
+ *       - Authentification
+ *     summary: Enregistrement d'un nouveau spectateur
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/SpectateurRegister'
+ *     responses:
+ *       201:
+ *         description: Spectateur enregistré avec succès
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Spectateur'
+ *       400:
+ *         description: Erreur de validation des données de la requête ou email déjà utilisé
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Message d'erreur
+ *       500:
+ *         description: Erreur interne du serveur
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Message d'erreur
+ *
+ * components:
+ *   schemas:
+ *     SpectateurRegister:
+ *       type: object
+ *       properties:
+ *         email:
+ *           type: string
+ *         mdp:
+ *           type: string
+ *       required:
+ *         - email
+ *         - mdp
+ *
+ *     Spectateur:
+ *       type: object
+ *       properties:
+ *         // Propriétés du spectateur
+ */
+
     app.post('/register', async (req: Request, res: Response) => {
         const validation = createSpectateurValidation.validate(req.body);
         if (validation.error) {

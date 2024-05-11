@@ -7,6 +7,89 @@ import { authAdmin } from '../../middlewares/authAdmin'
 
 
 export const updateSeance = (app: Express): void => {
+    /**
+ * @openapi
+ * /seances/{id}:
+ *   patch:
+ *     tags:
+ *       - Seances
+ *     summary: Mettre à jour une séance par son ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID de la séance à mettre à jour
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/SeanceUpdate'
+ *     responses:
+ *       200:
+ *         description: Séance mise à jour avec succès
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Seance'
+ *       400:
+ *         description: Requête invalide
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Message d'erreur
+ *       500:
+ *         description: Erreur interne du serveur
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Message d'erreur
+ * components:
+ *   schemas:
+ *     SeanceUpdate:
+ *       type: object
+ *       properties:
+ *         idFilm:
+ *           type: integer
+ *         idSalle:
+ *           type: integer
+ *       example:
+ *         idFilm: 1
+ *         idSalle: 1
+ *     Seance:
+ *       type: object
+ *       properties:
+ *         idSeance:
+ *           type: integer
+ *         date:
+ *           type: string
+ *           format: date-time
+ *         idFilm:
+ *           type: integer
+ *         idSalle:
+ *           type: integer
+ *       required:
+ *         - idSeance
+ *         - date
+ *         - idFilm
+ *         - idSalle
+ *       example:
+ *         idSeance: 1
+ *         date: "2024-05-15T12:00:00Z"
+ *         idFilm: 1
+ *         idSalle: 1
+ */
+
     app.patch('/seances/:id', authAdmin, async (req: Request, res: Response) => {
         const validate = updateTacheValidation.validate({ ...req.params, ...req.body })
 

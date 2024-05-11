@@ -1,6 +1,7 @@
 import express from 'express';
 import * as routes from './routes';
 import { AppDataSource } from './database/database';
+import { swaggerDocs } from './swagger';
 import 'dotenv/config';
 
 const main = async() => {
@@ -21,6 +22,7 @@ const main = async() => {
 
   app.listen(3000, () => {
     console.log('Server is listening on port 3000');
+    swaggerDocs(app, 3000);
   });
 }
 

@@ -20,6 +20,128 @@ function nEstPasWeekend(date: { getDay: () => any; }) {
 }
 
 export const createSeance = (app: Express) => {
+/**
+ * @openapi
+ * /seances:
+ *   post:
+ *     tags:
+ *       - Seances
+ *     summary: Créer une nouvelle séance
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/SeanceCreate'
+ *     responses:
+ *       201:
+ *         description: Séance créée avec succès
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Seance'
+ *       400:
+ *         description: Requête invalide
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Message d'erreur
+ *       404:
+ *         description: Ressource non trouvée
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Message d'erreur
+ *       409:
+ *         description: Conflit de séances ou données incorrectes
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Message d'erreur
+ *       500:
+ *         description: Erreur interne du serveur
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Message d'erreur
+ * components:
+ *   schemas:
+ *     SeanceCreate:
+ *       type: object
+ *       properties:
+ *         idFilm:
+ *           type: integer
+ *           description: ID du film de la séance
+ *         idSalle:
+ *           type: integer
+ *           description: ID de la salle où se déroule la séance
+ *         dateDebut:
+ *           type: string
+ *           format: date-time
+ *           description: Date et heure de début de la séance
+ *       required:
+ *         - idFilm
+ *         - idSalle
+ *         - dateDebut
+ *       example:
+ *         idFilm: 1
+ *         idSalle: 1
+ *         dateDebut: "2024-05-15T12:00:00Z"
+ *     Seance:
+ *       type: object
+ *       properties:
+ *         idSeance:
+ *           type: integer
+ *           description: ID de la séance
+ *         nom:
+ *           type: string
+ *           description: Nom de la séance
+ *         dateDebut:
+ *           type: string
+ *           format: date-time
+ *           description: Date et heure de début de la séance
+ *         dateFin:
+ *           type: string
+ *           format: date-time
+ *           description: Date et heure de fin de la séance
+ *         idFilm:
+ *           type: integer
+ *           description: ID du film de la séance
+ *         idSalle:
+ *           type: integer
+ *           description: ID de la salle où se déroule la séance
+ *       required:
+ *         - idSeance
+ *         - nom
+ *         - dateDebut
+ *         - dateFin
+ *         - idFilm
+ *         - idSalle
+ *       example:
+ *         idSeance: 1
+ *         nom: "Séance du film X"
+ *         dateDebut: "2024-05-15T12:00:00Z"
+ *         dateFin: "2024-05-15T13:30:00Z"
+ *         idFilm: 1
+ *         idSalle: 1
+ */
+
     app.post('/seances', authAdmin, async (req: Request, res: Response) => {
         const validate = createSeanceValidation.validate(req.body);
 
