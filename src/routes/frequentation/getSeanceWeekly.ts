@@ -7,6 +7,44 @@ import { Film } from '../../database/entities/Film';
 import { Place } from '../../database/entities/Place';
 
 export const getSeancesForCurrentWeek = (app: Express) => {
+    /**
+ * Retrieves the frequency of sessions scheduled for the current week.
+ * 
+ * @openapi
+ * 
+ * /freq/seances/weekly:
+ *   get:
+ *     tags:
+ *      - Frequentation
+ *     summary: Retrieve the frequency of sessions scheduled for the current week
+ *     description: Retrieves the frequency of sessions scheduled for the current week and returns the list of sessions along with the number of reserved places for each session.
+ *     responses:
+ *       '200':
+ *         description: Successfully retrieved the frequency of sessions for the current week.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   idSeance:
+ *                     type: integer
+ *                     description: The ID of the session.
+ *                   places:
+ *                     type: array
+ *                     description: The list of reserved places for the session.
+ *                     items:
+ *                       $ref: '#/components/schemas/Place'
+ *       '404':
+ *         description: No sessions found for the current week.
+ *       '500':
+ *         description: Internal server error.
+ * 
+ * @param {Request} req - The request object.
+ * @param {Response} res - The response object used to send the HTTP response.
+ * @returns {Response} The HTTP response containing the frequency of sessions for the current week.
+ */
     app.get('/freq/seances/weekly', async (req: Request, res: Response) => {
         const repo = AppDataSource.getRepository(Place);
 

@@ -7,6 +7,44 @@ import { Film } from '../../database/entities/Film';
 import { Place } from '../../database/entities/Place';
 
 export const getSeancesForCurrentDay = (app: Express) => {
+    /**
+ * Retrieves the frequency of sessions scheduled for the current day.
+ * 
+ * @openapi
+ * 
+ * /freq/seances/daily:
+ *   get:
+ *     tags:
+ *      - Frequentation
+ *     summary: Retrieve the frequency of sessions scheduled for the current day
+ *     description: Retrieves the frequency of sessions scheduled for the current day and returns the list of sessions along with the number of reserved places for each session.
+ *     responses:
+ *       '200':
+ *         description: Successfully retrieved the frequency of sessions for the current day.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   idSeance:
+ *                     type: integer
+ *                     description: The ID of the session.
+ *                   places:
+ *                     type: array
+ *                     description: The list of reserved places for the session.
+ *                     items:
+ *                       $ref: '#/components/schemas/Place'
+ *       '404':
+ *         description: No sessions found for the current day.
+ *       '500':
+ *         description: Internal server error.
+ * 
+ * @param {Request} req - The request object.
+ * @param {Response} res - The response object used to send the HTTP response.
+ * @returns {Response} The HTTP response containing the frequency of sessions for the current day.
+ */
     app.get('/freq/seances/daily', async (req: Request, res: Response) => {
         const repo = AppDataSource.getRepository(Place);
 
