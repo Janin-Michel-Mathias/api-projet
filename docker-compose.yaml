@@ -28,5 +28,20 @@ services:
       - /app/node_modules
     restart: unless-stopped
 
+
+  prometheus:
+        image: prom/prometheus:latest
+        ports:
+        - "9090:9090"
+        volumes:
+        - ./prometheus:/prometheus
+        depends_on:
+        - app
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3001:3000"
+
 volumes:
   postgres-data:
