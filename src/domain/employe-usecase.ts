@@ -10,6 +10,4 @@ export interface UpdateEmployeRequest {
 
 export class EmployeUsecase {
     constructor(private readonly db: DataSource) { }
-
-    
 }
