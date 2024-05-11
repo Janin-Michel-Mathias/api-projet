@@ -1,5 +1,4 @@
 import { Column, Entity, PrimaryGeneratedColumn, ManyToOne } from "typeorm";
-import { Spectateur } from "./Spectateur";
 
 @Entity({ name: "Billet" })
 export class Billet {
@@ -15,7 +14,7 @@ export class Billet {
     @Column()
     utilisation: number;
 
-    @ManyToOne(() => Spectateur, Spectateur => Spectateur.idSpectateur)
+    @Column()
     idSpectateur: number;
 
     constructor(

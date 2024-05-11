@@ -5,7 +5,7 @@ import { createSpectateurValidation } from '../../handlers/validators/spectateur
 import { hash } from 'bcrypt';
 import { generateValidationErrorMessage } from '../../handlers/validators/generate-validation-message';
 
-export const register = (app: Express):void => {
+export const register = (app: Express): void => {
     app.post('/register', async (req: Request, res: Response) => {
         const validation = createSpectateurValidation.validate(req.body);
         if (validation.error) {
@@ -14,7 +14,7 @@ export const register = (app: Express):void => {
         }
 
         let spectateurRequest = validation.value;
-        spectateurRequest = {...spectateurRequest, mdp: await hash(spectateurRequest.mdp, 10)};
+        spectateurRequest = { ...spectateurRequest, mdp: await hash(spectateurRequest.mdp, 10) };
         const spectateurRepo = AppDataSource.getRepository(Spectateur);
 
         // Verify if the email is already in use
@@ -26,7 +26,7 @@ export const register = (app: Express):void => {
         }
 
         try {
-            const spectateurCreated = await spectateurRepo.save(spectateurRequest);
+            const spectateurCreated = await spectateurRepo.save({ ...spectateurRequest, solde: 0 });
             res.status(201).send(spectateurCreated);
         } catch (error) {
             res.status(500).send({ error: 'Internal error' });
