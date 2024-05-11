@@ -1,5 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn, ManyToOne } from "typeorm";
-import { Tache } from "./Tache";
+import { Billet } from "./Billet";
 
 @Entity({ name: "Place" })
 export class Place {
@@ -7,18 +7,18 @@ export class Place {
     idPlace: number;
 
     @Column()
-    numSiege: string;
+    idBillet: number
 
     @Column()
     idSeance: number;
 
     constructor(
         idPlace: number,
-        numSiege: string,
+        idBillet: number,
         idSeance: number
     ) {
         this.idPlace = idPlace;
-        this.numSiege = numSiege;
+        this.idBillet = idBillet;
         this.idSeance = idSeance;
     }
 }
