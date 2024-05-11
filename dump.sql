@@ -443,6 +443,11 @@ COPY public."Billet" ("idBillet", type, prix, utilisation, "idSpectateur") FROM 
 
 COPY public."Employe" ("idEmploye", nom, email, mdp, role, poste) FROM stdin;
 1	Vanande	vanande@admin.fr	$2b$10$6zsk58m/uTKpl9p.Ta3Opuem4UI1.sYHG0K7NXgIVBjONh5DggwmO	employe	employe
+2	Ava Wilson	ava.wilson@example.com	$2b$10$6XEUjDLszRaP5QbrAf/LReyac7fIBwYNpRSLmG.lfdM8/hd0tYF06	client	participant
+3	William Anderson	william.anderson@example.com	$2b$10$GkyMLfqxra/PZTOchfnXjOgNJ8O.TMetbav9t1yj/GGvzLGL5Eh96	employe	consultant
+4	Olivia Martinez	olivia.martinez@example.com	$2b$10$HeWatpKZmkkMa8emMsYZVuKtz9hMKCuyjp1Yk1Iwhfqf7TtppFrfm	client	member
+5	David Taylor	david.taylor@example.com	$2b$10$LL/tp.DCIlaeqNxJY9nBQ.rzTHjlFr.cmqolKoHaTRBbcah.X81XS	employe	support
+6	Sophia Miller	sophia.miller@example.com	$2b$10$mIsZ3rgJlV34vyQjximky.Kc9vFKeeUTIy6v3M0n1/Wm.ntXf.7Cm	client	user
 \.
 
 
@@ -552,6 +557,14 @@ COPY public."Salle" ("idSalle", nom, description, images, capacite, "accesHandic
 COPY public."Spectateur" ("idSpectateur", nom, email, mdp, prenom, sexe, date_naissance, solde) FROM stdin;
 1	Khatchatrian	api@example.com	$2b$10$8cfKPj8loTo/Rt9U5ozVuOT5BHqwe1d7BL5NliaVVxLjNGyODvaEe	Vanande	homme	2003-12-12	30
 2	Khatchatrian	aapi@example.com	$2b$10$4VZvpTAR0DOHUL24u6mk1ePLE/TLRG9.30TRLeY2QVrPmw3XknyAK	Vanande	homme	2003-12-12	24
+3	Dupont	alice.dupont@example.com	$2b$10$fDnlF2LetU98RFTC1W.uU.6QCNyrOZY3Z5RoYq8C/V1gCv3Sbqrd2	Alice	femme	1995-08-25	0
+4	Leroy	nicolas.leroy@example.com	$2b$10$SzJuegGGTHMeb.HcBHqHBO2pbYrMXwVcXVDF9zcYAViXX50aKn3RG	Nicolas	homme	1985-12-07	0
+5	Sananes	f.sananes@example.com	$2b$10$6qv31csHnWSLDaYkxRogsON/Rv52P7fBEWPCk.WTPSEY25KVmp92.	Fred	homme	1885-12-07	0
+6	Petit	thomas.petit@example.com	$2b$10$7qRIYyh9xdW098iSRursruuWkqs5vHqXauk6ZDlN0FPMqewzcW96q	Thomas	homme	1996-04-23	0
+7	Moreau	charlotte.moreau@example.com	$2b$10$F1sigqju0phpicCiiN7IOu.gtsv8EdBDJC4vA7xQHdHkQZPzw.YtC	Charlotte	femme	1990-07-07	0
+8	Dubois	david.dubois@example.com	$2b$10$.ItdT7/W8ckyj98ToAGqHOYWX2tFiU3lpe6dNHtaDSibNYZ74AVr.	David	homme	1998-02-18	0
+9	Lefevre	william.lefevre@example.com	$2b$10$rb2dY16xYZ1xf1S5aKW4l.etSxUFlkm5EjO8NjyY6QiIzpDD503om	William	homme	1992-06-12	0
+10	Garcia	emma.garcia@example.com	$2b$10$TN77SREt8qcezpKOYtETme2qjJeaf0BDV8cVYs6o2C4WTwxUR.6Jm	Emma	femme	2000-11-03	0
 \.
 
 
@@ -606,7 +619,7 @@ SELECT pg_catalog.setval('public."Billet_idBillet_seq"', 10, true);
 -- Name: Employe_idEmploye_seq; Type: SEQUENCE SET; Schema: public; Owner: odm_user
 --
 
-SELECT pg_catalog.setval('public."Employe_idEmploye_seq"', 1, true);
+SELECT pg_catalog.setval('public."Employe_idEmploye_seq"', 6, true);
 
 
 --
@@ -641,7 +654,7 @@ SELECT pg_catalog.setval('public."Salle_idSalle_seq"', 20, true);
 -- Name: Spectateur_idSpectateur_seq; Type: SEQUENCE SET; Schema: public; Owner: odm_user
 --
 
-SELECT pg_catalog.setval('public."Spectateur_idSpectateur_seq"', 2, true);
+SELECT pg_catalog.setval('public."Spectateur_idSpectateur_seq"', 10, true);
 
 
 --
