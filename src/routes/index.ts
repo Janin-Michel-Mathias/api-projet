@@ -9,3 +9,4 @@ export * from './billet';
 export * from './login';
 export * from './money';
 export * from './seance';
+export * from './place';
