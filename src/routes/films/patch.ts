@@ -3,9 +3,10 @@ import { AppDataSource } from '../../database/database';
 import { Film } from '../../database/entities/Film';
 import { updateMovieValidation } from '../../handlers/validators/film-validators';
 import { generateValidationErrorMessage } from '../../handlers/validators/generate-validation-message';
+import { authAdmin } from '../../middlewares/authAdmin';
 
 export const updateMovies = (app: Express):void => {
-    app.patch('/films/:id', async (req: Request, res: Response) => {
+    app.patch('/films/:id', authAdmin, async (req: Request, res: Response) => {
         const params = {...req.body,  idFilm: parseInt(req.params.id) };
         const validation = updateMovieValidation.validate(params);
         if (validation.error) {

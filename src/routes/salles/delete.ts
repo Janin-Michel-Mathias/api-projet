@@ -3,9 +3,10 @@ import { AppDataSource } from "../../database/database";
 import { SalleUsecase } from "../../domain/salle-usecase";
 import { deletesalleValidation } from "../../handlers/validators/salle-validation";
 import { generateValidationErrorMessage } from "../../handlers/validators/generate-validation-message";
+import { authAdmin } from "../../middlewares/authAdmin";
 
 export const removeSalle = (app: Express):void => {
-    app.delete("/salles/:id", async (req: Request, res: Response) => {
+    app.delete("/salles/:id", authAdmin, async (req: Request, res: Response) => {
 
         const validation = deletesalleValidation.validate({...req.params})
 

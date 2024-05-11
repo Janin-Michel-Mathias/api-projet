@@ -3,9 +3,10 @@ import { AppDataSource } from "../../database/database";
 import { BilletUsecase } from "../../domain/billet-usecase";
 import { deleteBilletValidation } from "../../handlers/validators/billet-validation";
 import { generateValidationErrorMessage } from "../../handlers/validators/generate-validation-message";
+import { authAdmin } from "../../middlewares/authAdmin";
 
 export const removeBillet = (app: Express): void => {
-    app.delete("/billets/:id", async (req: Request, res: Response) => {
+    app.delete("/billets/:id", authAdmin, async (req: Request, res: Response) => {
         const validation = deleteBilletValidation.validate({ ...req.params });
 
         if (validation.error) {

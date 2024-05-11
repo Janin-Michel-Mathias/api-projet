@@ -3,9 +3,10 @@ import { AppDataSource } from '../../database/database';
 import { Employe } from '../../database/entities/Employe';
 import { createEmployeValidation } from '../../handlers/validators/employe-validators';
 import { hash } from 'bcrypt';
+import { authAdmin } from '../../middlewares/authAdmin';
 
 export const createEmploye = (app: Express) => {
-    app.post('/employes', async (req: Request, res: Response) => {
+    app.post('/employes', authAdmin, async (req: Request, res: Response) => {
         const validation = createEmployeValidation.validate(req.body);
         if (validation.error) {
             res.status(400).send(validation.error.details);

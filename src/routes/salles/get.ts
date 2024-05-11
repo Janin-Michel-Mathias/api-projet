@@ -4,9 +4,10 @@ import { Salle } from '../../database/entities/Salle';
 import { getSalleValidation } from '../../handlers/validators/salle-validation';
 import { generateValidationErrorMessage } from '../../handlers/validators/generate-validation-message';
 import { SalleUsecase } from '../../domain/salle-usecase';
+import { authAdmin } from '../../middlewares/authAdmin';
 
 export const getSalles = (app: Express):void => {
-    app.get('/salles', async (req: Request, res: Response) => {
+    app.get('/salles', authAdmin, async (req: Request, res: Response) => {
         const repo = AppDataSource.getRepository(Salle)
         const salles = await repo.find()
         res.status(200).send(salles);
@@ -14,7 +15,7 @@ export const getSalles = (app: Express):void => {
 }
 
 export const getSalle = (app: Express):void => {
-    app.get('/salles/:id', async(req: Request, res: Response) => {
+    app.get('/salles/:id', authAdmin, async(req: Request, res: Response) => {
         const validation = getSalleValidation.validate({...req.params})
 
         if (validation.error) {

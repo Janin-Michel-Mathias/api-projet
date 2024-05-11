@@ -7,6 +7,7 @@ import { Film } from '../../database/entities/Film';
 import { Tache } from "../../database/entities/Tache";
 import { Between, LessThan, LessThanOrEqual, MoreThan, MoreThanOrEqual } from 'typeorm';
 import { date } from 'joi';
+import { authAdmin } from '../../middlewares/authAdmin';
 
 function estEntre9hEt20h(date: { getHours: () => any; }) {
     const heure = date.getHours();
@@ -19,7 +20,7 @@ function nEstPasWeekend(date: { getDay: () => any; }) {
 }
 
 export const createSeance = (app: Express) => {
-    app.post('/seances', async (req: Request, res: Response) => {
+    app.post('/seances', authAdmin, async (req: Request, res: Response) => {
         const validate = createSeanceValidation.validate(req.body);
 
         if (validate.error) {

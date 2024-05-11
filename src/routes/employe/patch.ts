@@ -4,9 +4,10 @@ import { Employe } from '../../database/entities/Employe';
 import { updateEmployeValidation } from '../../handlers/validators/employe-validators';
 import { generateValidationErrorMessage } from '../../handlers/validators/generate-validation-message';
 import { hash } from 'bcrypt';
+import { authAdmin } from '../../middlewares/authAdmin';
 
 export const updateEmploye = (app: Express) => {
-    app.patch('/employes/:id', async (req: Request, res: Response) => {
+    app.patch('/employes/:id', authAdmin ,async (req: Request, res: Response) => {
         const validation = updateEmployeValidation.validate({...req.body, idEmploye: req.params.id});
         if (validation.error) {
             res.status(400).send(generateValidationErrorMessage(validation.error.details));

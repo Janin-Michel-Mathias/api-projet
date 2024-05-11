@@ -3,10 +3,11 @@ import { AppDataSource } from '../../database/database'
 import { Tache } from '../../database/entities/Tache'
 import { updateTacheValidation } from '../../handlers/validators/tache-validation'
 import { generateValidationErrorMessage } from '../../handlers/validators/generate-validation-message'
+import { authAdmin } from '../../middlewares/authAdmin'
 
 
 export const updateSeance = (app: Express): void => {
-    app.patch('/seances/:id', async (req: Request, res: Response) => {
+    app.patch('/seances/:id', authAdmin, async (req: Request, res: Response) => {
         const validate = updateTacheValidation.validate({ ...req.params, ...req.body })
 
         if (validate.error) {

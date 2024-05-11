@@ -3,9 +3,10 @@ import { AppDataSource } from '../../database/database';
 import { Billet } from '../../database/entities/Billet';
 import { updateBilletValidation } from '../../handlers/validators/billet-validation';
 import { generateValidationErrorMessage } from '../../handlers/validators/generate-validation-message';
+import { authAdmin } from '../../middlewares/authAdmin';
 
 export const updateBillet = (app: Express): void => {
-    app.patch('/billets/:id', async (req: Request, res: Response) => {
+    app.patch('/billets/:id', authAdmin, async (req: Request, res: Response) => {
         const validate = updateBilletValidation.validate({ ...req.params, ...req.body });
 
         if (validate.error) {

@@ -5,11 +5,10 @@ import { GetBilletValidation } from '../../handlers/validators/billet-validation
 import { generateValidationErrorMessage } from '../../handlers/validators/generate-validation-message';
 import { BilletUsecase } from '../../domain/billet-usecase';
 import { authSpectateur } from '../../middlewares/authSpectateur';
-import { Spectateur } from '../../database/entities/Spectateur';
-import { Transaction } from 'typeorm';
+import { authAdmin } from '../../middlewares/authAdmin';
 
 export const getBillets = (app: Express): void => {
-    app.get('/billets', async (req: Request, res: Response) => {
+    app.get('/billets', authAdmin ,async (req: Request, res: Response) => {
         const repo = AppDataSource.getRepository(Billet);
         const billets = await repo.find();
         res.status(200).send(billets);
@@ -17,7 +16,7 @@ export const getBillets = (app: Express): void => {
 };
 
 export const getBillet = (app: Express): void => {
-    app.get('/billets/:id', async (req: Request, res: Response) => {
+    app.get('/billets/:id', authAdmin, async (req: Request, res: Response) => {
         const validation = GetBilletValidation.validate({ ...req.params });
 
         if (validation.error) {

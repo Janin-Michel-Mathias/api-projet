@@ -1,10 +1,11 @@
 import {Express, Request, Response} from 'express';
 import { AppDataSource } from '../../database/database';
 import { Film } from '../../database/entities/Film';
+import { authAdmin } from '../../middlewares/authAdmin';
 
 
 export const deleteMovies = (app: Express):void => {
-    app.delete('/films/:id', async (req: Request, res: Response) => {
+    app.delete('/films/:id', authAdmin, async (req: Request, res: Response) => {
         const movieRepo = AppDataSource.getRepository(Film);
         const movie = await movieRepo.findOneBy({ idFilm: parseInt(req.params.id) });
         if (!movie) {
