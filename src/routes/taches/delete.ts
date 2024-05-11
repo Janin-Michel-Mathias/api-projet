@@ -18,7 +18,7 @@ export const removeTache = (app: Express): void => {
 
         try {
             const tacheUsecase = new TacheUsecase(AppDataSource);
-            const deletetache = await tacheUsecase.(deletetacheRequest.id)
+            const deletetache = await tacheUsecase.deleteTache(deletetacheRequest.id)
             if (deletetache === null) {
                 res.status(404).send({ "error": `tache ${deletetacheRequest.id} not found` })
                 return

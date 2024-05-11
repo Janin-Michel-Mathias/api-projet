@@ -9,7 +9,7 @@ export class Place {
     @Column()
     numSiege: string;
 
-    @ManyToOne(() => Tache, tache => tache.idTache)
+    @Column()
     idSeance: number;
 
     constructor(
