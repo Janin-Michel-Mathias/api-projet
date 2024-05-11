@@ -18,10 +18,11 @@ export const salleValidation = Joi.object<SalleRequest>({
     images: Joi.string(),
     capacite: Joi.number()
         .required()
-        .min(1),
+        .min(15)
+        .max(30),
     accesHandicap: Joi.bool()
         .default(false),
-    etat: Joi.string()
+    etat: Joi.string().valid("Prêt", "En maintenance", "Occupé", "Fermé")
 }).options({ abortEarly: false });
 
 
@@ -32,10 +33,10 @@ export interface UpdateSalleRequest {
     images?: string,
     capacite?: number,
     accesHandicap?: boolean,
-    etat?: string 
+    etat?: string
 }
 
-export const updateSalleValidation = Joi.object<UpdateSalleRequest> ({
+export const updateSalleValidation = Joi.object<UpdateSalleRequest>({
     id: Joi.number().required(),
     nom: Joi.string(),
     description: Joi.string().min(2),
@@ -49,7 +50,7 @@ export interface GetSalleRequest {
     id: number
 }
 
-export const getSalleValidation = Joi.object<GetSalleRequest> ({
+export const getSalleValidation = Joi.object<GetSalleRequest>({
     id: Joi.number().required()
 })
 
