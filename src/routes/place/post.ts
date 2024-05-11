@@ -9,6 +9,45 @@ import { Billet } from '../../database/entities/Billet';
 import { Tache } from '../../database/entities/Tache';
 
 export const createPlace = (app: Express) => {
+    /**
+ * Creates a new place reservation for the authenticated spectator.
+ * 
+ * @openapi
+ * 
+ * /places:
+ *   post:
+ *     tags:
+ *      - Places
+ *     summary: Create a new place reservation for the authenticated spectator
+ *     description: Creates a new place reservation for the authenticated spectator using the provided details in the request body.
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/PlaceCreate'
+ *     responses:
+ *       '201':
+ *         description: Successfully created a new place reservation.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Place'
+ *       '400':
+ *         description: Bad request. Indicates that there was an issue with the provided request data.
+ *       '401':
+ *         description: Unauthorized. Indicates that the authenticated spectator is not authorized to use the specified ticket.
+ *       '404':
+ *         description: Not found. Indicates that the spectator, ticket, or session specified in the request was not found.
+ *       '500':
+ *         description: Internal server error.
+ * 
+ * @param {Request} req - The request object.
+ * @param {Response} res - The response object used to send the HTTP response.
+ * @returns {Response} The HTTP response indicating the success or failure of the place reservation creation.
+ */
     app.post('/places', authSpectateur, async (req: Request, res: Response) => {
         const validate = createPlaceValidation.validate(req.body);
 
