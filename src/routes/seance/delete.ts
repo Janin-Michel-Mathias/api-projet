@@ -4,9 +4,10 @@ import { SalleUsecase } from "../../domain/salle-usecase";
 import { generateValidationErrorMessage } from "../../handlers/validators/generate-validation-message";
 import { deleteTacheValidation } from "../../handlers/validators/tache-validation";
 import { TacheUsecase } from "../../domain/tache-usecase";
+import { authAdmin } from "../../middlewares/authAdmin";
 
 export const removeSeance = (app: Express): void => {
-    app.delete("/seances/:id", async (req: Request, res: Response) => {
+    app.delete("/seances/:id", authAdmin, async (req: Request, res: Response) => {
 
         const validation = deleteTacheValidation.validate({ ...req.params })
 

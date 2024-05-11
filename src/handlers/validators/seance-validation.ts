@@ -29,3 +29,15 @@ export interface DeleteSeanceRequest {
 export const deleteSeanceValidation = Joi.object<DeleteSeanceRequest>({
     id: Joi.number().required(),
 });
+
+export const seanceFilteringValidation = Joi.object<SeanceFilteringRequest>({
+    dateDebut: Joi.date().iso().optional(),
+    dateFin: Joi.date().iso().optional(),
+    film: Joi.string().optional(),
+}).options({ abortEarly: false });
+
+export interface SeanceFilteringRequest {
+    dateDebut?: Date,
+    dateFin?: Date,
+    film?: string,
+}

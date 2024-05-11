@@ -4,9 +4,10 @@ import { Tache } from '../../database/entities/Tache';
 import { getTacheValidation } from '../../handlers/validators/tache-validation';
 import { generateValidationErrorMessage } from '../../handlers/validators/generate-validation-message';
 import { TacheUsecase } from '../../domain/tache-usecase';
+import { authAdmin } from '../../middlewares/authAdmin';
 
 export const getTaches = (app: Express):void => {
-    app.get('/taches', async (req: Request, res: Response) => {
+    app.get('/taches', authAdmin, async (req: Request, res: Response) => {
         const repo = AppDataSource.getRepository(Tache)
         const taches = await repo.find()
         res.status(200).send(taches);

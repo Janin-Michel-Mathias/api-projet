@@ -3,9 +3,10 @@ import { AppDataSource } from '../../database/database'
 import { Salle } from '../../database/entities/Salle'
 import { updateSalleValidation } from '../../handlers/validators/salle-validation'
 import { generateValidationErrorMessage } from '../../handlers/validators/generate-validation-message'
+import { authAdmin } from '../../middlewares/authAdmin'
 
 export const updateSalle = (app: Express):void => {
-    app.patch('/salles/:id', async(req: Request, res: Response) => {
+    app.patch('/salles/:id', authAdmin, async(req: Request, res: Response) => {
         const validate = updateSalleValidation.validate({...req.params, ...req.body})
         
         if (validate.error){

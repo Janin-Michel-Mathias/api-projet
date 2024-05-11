@@ -3,10 +3,11 @@ import { createMovieValidation } from '../../handlers/validators/film-validators
 import { AppDataSource } from '../../database/database';
 import { Film } from '../../database/entities/Film';
 import { generateValidationErrorMessage } from '../../handlers/validators/generate-validation-message';
+import { authAdmin } from '../../middlewares/authAdmin';
 
 
 export const createMovie = (app: Express) => {
-    app.post('/films', async (req: Request, res: Response) => {
+    app.post('/films', authAdmin, async (req: Request, res: Response) => {
         const validation = createMovieValidation.validate(req.body);
         if (validation.error) {
             res.status(400).send(generateValidationErrorMessage(validation.error.details));

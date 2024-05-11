@@ -3,9 +3,10 @@ import { AppDataSource } from "../../database/database";
 import { Tache } from "../../database/entities/Tache";
 import { generateValidationErrorMessage } from "../../handlers/validators/generate-validation-message";
 import { createTacheValidation } from "../../handlers/validators/tache-validation";
+import { authAdmin } from '../../middlewares/authAdmin';
 
 export const createTache = (app: Express) => {
-    app.post('/taches', async (req: Request, res: Response) => {
+    app.post('/taches', authAdmin, async (req: Request, res: Response) => {
         const validate = createTacheValidation.validate(req.body);
 
         if (validate.error) {

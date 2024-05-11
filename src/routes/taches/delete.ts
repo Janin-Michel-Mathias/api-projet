@@ -3,9 +3,10 @@ import { AppDataSource } from "../../database/database";
 import { TacheUsecase } from "../../domain/tache-usecase";
 import { deleteTacheValidation } from "../../handlers/validators/tache-validation";
 import { generateValidationErrorMessage } from "../../handlers/validators/generate-validation-message";
+import { authAdmin } from "../../middlewares/authAdmin";
 
 export const removeTache = (app: Express): void => {
-    app.delete("/taches/:id", async (req: Request, res: Response) => {
+    app.delete("/taches/:id", authAdmin, async (req: Request, res: Response) => {
 
         const validation = deleteTacheValidation.validate({ ...req.params })
 

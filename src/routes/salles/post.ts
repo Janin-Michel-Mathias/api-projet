@@ -3,9 +3,10 @@ import { AppDataSource } from '../../database/database';
 import { Salle } from '../../database/entities/Salle';
 import { salleValidation } from '../../handlers/validators/salle-validation';
 import { generateValidationErrorMessage } from '../../handlers/validators/generate-validation-message';
+import { authAdmin } from '../../middlewares/authAdmin';
 
 export const createSalle =  (app: Express) => {
-    app.post('/salles', async(req: Request, res: Response) => {
+    app.post('/salles', authAdmin, async(req: Request, res: Response) => {
         console.log(req.body);
         
         const validate = salleValidation.validate(req.body)
