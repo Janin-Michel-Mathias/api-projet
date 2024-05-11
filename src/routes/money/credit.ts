@@ -5,6 +5,65 @@ import { Spectateur } from "../../database/entities/Spectateur";
 import { Transaction } from "../../database/entities/Transaction";
 
 export const credit = (app: Express) => {
+    /**
+ * @openapi
+ * /credit:
+ *   post:
+ *     tags:
+ *       - Opérations financières
+ *     summary: Créditer le solde d'un spectateur
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               credit:
+ *                 type: number
+ *             required:
+ *               - credit
+ *     responses:
+ *       200:
+ *         description: Solde du spectateur mis à jour avec succès
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Spectateur'
+ *       400:
+ *         description: Erreur de validation des données de la requête
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Message d'erreur
+ *       404:
+ *         description: Spectateur non trouvé
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Message d'erreur
+ *       500:
+ *         description: Erreur interne du serveur
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Message d'erreur
+ */
+
     app.post('/credit', authSpectateur ,async (req: Request, res: Response) => {
         const spectateur = (req as any).user;
         const spectateurRepo = AppDataSource.getRepository(Spectateur);

@@ -22,6 +22,102 @@ const classicBillet = {
 
 
 export const prix = (app: Express) => {
+
+/**
+ * @openapi
+ * /billets/buy:
+ *   post:
+ *     tags:
+ *       - Billets
+ *     summary: Acheter un billet
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/BuyBillet'
+ *     responses:
+ *       201:
+ *         description: Billet acheté avec succès
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 billets:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Billet'
+ *                 solde:
+ *                   type: number
+ *                   description: Solde restant du spectateur
+ *       400:
+ *         description: Erreur de validation ou solde insuffisant
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Message d'erreur
+ *       404:
+ *         description: Spectateur non trouvé
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Message d'erreur
+ *       500:
+ *         description: Erreur interne du serveur
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Message d'erreur
+ *
+ * components:
+ *   schemas:
+ *     BuyBillet:
+ *       type: object
+ *       properties:
+ *         type:
+ *           type: string
+ *           description: Type de billet (par exemple, "Super" ou "Classic")
+ *         quantite:
+ *           type: integer
+ *           description: Quantité de billets à acheter
+ *       required:
+ *         - type
+ *         - quantite
+ *     Billet:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: string
+ *           description: Identifiant unique du billet
+ *         type:
+ *           type: string
+ *           description: Type de billet (par exemple, "Super" ou "Classic")
+ *         prix:
+ *           type: number
+ *           description: Prix du billet
+ *         utilisation:
+ *           type: number
+ *           description: Nombre d'utilisations du billet
+ *         idSpectateur:
+ *           type: string
+ *           description: Identifiant du spectateur auquel le billet est associé
+ */
+
+
+
     app.post('/billets/buy', authSpectateur, async (req: Request, res: Response) => {
 
         const validation = buyBilletValidation.validate(req.body)

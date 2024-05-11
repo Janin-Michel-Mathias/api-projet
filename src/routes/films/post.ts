@@ -7,6 +7,48 @@ import { authAdmin } from '../../middlewares/authAdmin';
 
 
 export const createMovie = (app: Express) => {
+    /**
+ * @openapi
+ * /films:
+ *   post:
+ *     tags:
+ *       - Films
+ *     summary: Créer un nouveau film
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Film'
+ *     responses:
+ *       201:
+ *         description: Film créé avec succès
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Film'
+ *       400:
+ *         description: Erreur de validation
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Message d'erreur
+ *       500:
+ *         description: Erreur interne du serveur
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Message d'erreur
+ */
+
     app.post('/films', authAdmin, async (req: Request, res: Response) => {
         const validation = createMovieValidation.validate(req.body);
         if (validation.error) {

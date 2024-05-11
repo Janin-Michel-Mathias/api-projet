@@ -6,6 +6,70 @@ import { compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
 
 export const login = (app: Express) => {
+    /**
+ * @openapi
+ * /login:
+ *   post:
+ *     tags:
+ *       - Authentification
+ *     summary: Authentification d'un utilisateur
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               mdp:
+ *                 type: string
+ *             required:
+ *               - email
+ *               - mdp
+ *     responses:
+ *       200:
+ *         description: Authentification réussie, token JWT généré
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 token:
+ *                   type: string
+ *                   description: Token JWT généré pour l'utilisateur authentifié
+ *       400:
+ *         description: Erreur de validation des données de la requête
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Message d'erreur
+ *       401:
+ *         description: Identifiants invalides
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Message d'erreur
+ *       500:
+ *         description: Erreur interne du serveur
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Message d'erreur
+ */
+
     app.post('/login', async (req: Request, res: Response) => {
         const validation = loginValidation.validate(req.body);
         if (validation.error) {

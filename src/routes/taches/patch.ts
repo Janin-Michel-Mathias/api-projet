@@ -6,6 +6,55 @@ import { Tache } from '../../database/entities/Tache'
 import { authAdmin } from '../../middlewares/authAdmin'
 
 export const updateTache = (app: Express): void => {
+
+    /**
+     * @openapi
+     * /taches/{id}:
+     *   patch:
+     *     tags:
+     *       - Taches
+     *     summary: Mettre à jour une tache
+     *     parameters:
+     *       - in: path
+     *         name: id
+     *         required: true
+     *         description: Identifiant de la tache à mettre à jour
+     *         schema:
+     *           type: string
+     *     requestBody:
+     *       required: true
+     *       content:
+     *         application/json:
+     *           schema:
+     *             $ref: '#/components/schemas/Tache'
+     *     responses:
+     *       200:
+     *         description: Tache mise à jour avec succès
+     *         content:
+     *           application/json:
+     *             schema:
+     *               $ref: '#/components/schemas/Tache'
+     *       400:
+     *         description: Erreur de validation
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: object
+     *               properties:
+     *                 error:
+     *                   type: string
+     *                   description: Message d'erreur
+     *       500:
+     *         description: Erreur interne du serveur
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: object
+     *               properties:
+     *                 error:
+     *                   type: string
+     *                   description: Message d'erreur
+     */
     app.patch('/taches/:id', authAdmin, async (req: Request, res: Response) => {
         const validate = updateTacheValidation.validate({ ...req.params, ...req.body })
 
