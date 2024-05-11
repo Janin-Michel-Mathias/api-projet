@@ -9,3 +9,15 @@ export const getSpectateurs = (app: Express):void => {
         res.status(200).send(spectateurs);
     });
 }
+
+export const getSpectateurByID = (app: Express):void => {
+    app.get('/spectateurs/:id', async (req: Request, res: Response) => {
+        const spectateurRepo = AppDataSource.getRepository(Spectateur);
+        const spectateur = await spectateurRepo.findOne({ where: { idSpectateur: parseInt(req.params.id) } });
+        if (!spectateur) {
+            res.status(404).send({ error: 'Spectateur not found' });
+            return;
+        }
+        res.status(200).send(spectateur);
+    });
+}
