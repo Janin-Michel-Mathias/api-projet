@@ -5,9 +5,10 @@ import { updateSpectateurValidation } from '../../handlers/validators/spectateur
 import { generateValidationErrorMessage } from '../../handlers/validators/generate-validation-message';
 import { hash } from 'bcrypt';
 import { authSpectateur } from '../../middlewares/authSpectateur';
+import { authAdmin } from '../../middlewares/authAdmin';
 
 export const updateSpectateur = (app: Express) => {
-    app.patch('/spectateurs/:id', async (req: Request, res: Response) => {
+    app.patch('/spectateurs/:id', authAdmin, async (req: Request, res: Response) => {
         applyUpdate(req, res, parseInt(req.params.id));
     });
 }

@@ -1,9 +1,10 @@
 import {Express, Request, Response} from 'express';
 import { AppDataSource } from '../../database/database';
 import { Spectateur } from '../../database/entities/Spectateur';
+import { authAdmin } from '../../middlewares/authAdmin';
 
 export const deleteSpectateur = (app: Express) => {
-    app.delete('/spectateurs/:id', async (req: Request, res: Response) => {
+    app.delete('/spectateurs/:id', authAdmin , async (req: Request, res: Response) => {
         applyDelete(req, res, parseInt(req.params.id));
     });
 }
