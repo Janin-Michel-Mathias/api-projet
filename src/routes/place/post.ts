@@ -78,8 +78,8 @@ export const createPlace = (app: Express) => {
         if (seanceFound != null && seanceFound.dateDebut < new Date()) return res.status(401).json({ error: 'Seance is in the past' });
 
         billetFound.utilisation = billetFound.utilisation - 1;
-        if (billetFound.utilisation <= 0) {
-            res.status(400).send({ error: "Aucune utilisations restantes" })
+        if (billetFound.utilisation < 0) {
+            res.status(400).send({ error: "Ce billet a déjà été utilisés" })
             return
         } else {
             AppDataSource.manager.save(billetFound);
