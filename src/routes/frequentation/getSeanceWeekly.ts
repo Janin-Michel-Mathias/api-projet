@@ -24,12 +24,14 @@ export const getSeancesForCurrentWeek = (app: Express) => {
             }
 
 
-            const places = seances.map(seance => {
+            const places = await Promise.all(seances.map(async seance => {
                 return {
                     idSeance: seance.idTache,
-                    places: repo.find({ where: { idSeance: seance.idTache } })
+                    nomSeance: seance.nom,
+                    dateDebut: seance.dateDebut,
+                    places: await repo.find({ where: { idSeance: seance.idTache } })
                 };
-            })
+            }));
 
 
             res.status(200).json(places);

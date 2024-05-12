@@ -5,6 +5,7 @@ import { Between } from 'typeorm/find-options/operator/Between';
 import { SeanceFilteringRequest } from '../../handlers/validators/seance-validation';
 import { Film } from '../../database/entities/Film';
 import { Place } from '../../database/entities/Place';
+import { date } from 'joi';
 
 export const getSeancesForCurrentMonth = (app: Express) => {
     app.get('/freq/seances/monthly', async (req: Request, res: Response) => {
@@ -22,12 +23,15 @@ export const getSeancesForCurrentMonth = (app: Express) => {
             }
 
 
-            const places = seances.map(seance => {
+            const places = await Promise.all(seances.map(async seance => {
                 return {
                     idSeance: seance.idTache,
-                    places: repo.find({ where: { idSeance: seance.idTache } })
+                    nomSeance: seance.nom,
+                    dateDebut: seance.dateDebut,
+                    places: await repo.find({ where: { idSeance: seance.idTache } })
                 };
-            })
+            }));
+
 
 
             res.status(200).json(places);
